@@ -4,6 +4,22 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>장기</title>
+    <!-- ONE store H5 Game SDK -->
+    <script type="module">
+      import { createSDK } from "https://h5sdk.onestore.net/lib/v1.1.0/onestore-h5-sdk.min.js";
+      var sdk = createSDK();
+      window.onestoreSdk = sdk;
+      sdk.on("pause", function () { try { document.querySelectorAll("audio,video").forEach(function (m) { m.pause(); }); } catch (e) {} });
+      sdk.on("resume", function () {});
+      sdk.on("exit", function () {});
+      sdk.initializeAsync()
+        .then(function (info) {
+          if (info && info.err) return; // 일반 브라우저 등 미지원 환경
+          sdk.setLoadingProgress(100);
+          return sdk.startGameAsync();
+        })
+        .catch(function (e) { console.warn("ONE store SDK", e && e.reason, e && e.message); });
+    </script>
     <script type="module" crossorigin>(function(){const t=document.createElement("link").relList;if(t&&t.supports&&t.supports("modulepreload"))return;for(const o of document.querySelectorAll('link[rel="modulepreload"]'))r(o);new MutationObserver(o=>{for(const l of o)if(l.type==="childList")for(const i of l.addedNodes)i.tagName==="LINK"&&i.rel==="modulepreload"&&r(i)}).observe(document,{childList:!0,subtree:!0});function n(o){const l={};return o.integrity&&(l.integrity=o.integrity),o.referrerPolicy&&(l.referrerPolicy=o.referrerPolicy),o.crossOrigin==="use-credentials"?l.credentials="include":o.crossOrigin==="anonymous"?l.credentials="omit":l.credentials="same-origin",l}function r(o){if(o.ep)return;o.ep=!0;const l=n(o);fetch(o.href,l)}})();function Jp(e){return e&&e.__esModule&&Object.prototype.hasOwnProperty.call(e,"default")?e.default:e}var Yc={exports:{}},Ll={},Bc={exports:{}},U={};/**
  * @license React
  * react.production.min.js
